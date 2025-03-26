@@ -1,13 +1,12 @@
 package chess;
 
 import java.util.Objects;
-import java.util.zip.Inflater;
 
 import chess.piece.CoordinatesShift;
 
 public class Coordinates {
 	public final File file;
-	public final Integer rank;
+	public final Integer rank; 
 
 	public Coordinates(File file, Integer rank) {
 		this.file = file;
@@ -22,7 +21,7 @@ public class Coordinates {
 		int f = file.ordinal() + shift.fileShift;
 		int r = rank + shift.rankShift;
 		
-		if((f < 0) || (f > 8)) return false;
+		if((f < 0) || (f > 7)) return false;
 		if((r < 1) || (r > 8)) return false;
 		
 		return true; 
@@ -44,5 +43,12 @@ public class Coordinates {
 		Coordinates other = (Coordinates) obj;
 		return file == other.file && Objects.equals(rank, other.rank);
 	}
+
+	@Override
+	public String toString() {
+		return file + String.valueOf(rank);
+	}
+	
+	 
 
 }

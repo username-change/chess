@@ -34,7 +34,7 @@ public abstract class Piece {
 		return result;
 	}
 	
-	private boolean isSquareAvailableForMove(Coordinates newCoordinates, Board board) {
+	protected boolean isSquareAvailableForMove(Coordinates newCoordinates, Board board) {
 		return board.isSquareEmpty(newCoordinates) || board.getPiece(newCoordinates).color != color;
 	}
 

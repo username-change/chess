@@ -10,7 +10,7 @@ public class InputCoordinates {
 
 	public static Coordinates input() {
 		while (true) {
-			System.out.print("enter coordinates");
+			System.out.print("please enter coordinates\n");
 
 			String line = scanner.nextLine();
 
@@ -50,7 +50,7 @@ public class InputCoordinates {
 
 	public static Coordinates inputPieceCoordinatesForColor(Color color, Board board) {
 		while (true) {
-			System.out.println("enter coordinates for piece to move");
+			System.out.println("enter coordinates for piece to move (ex. a1)");
 			Coordinates coordinates = input();
 
 			if (board.isSquareEmpty(coordinates)) {
@@ -67,15 +67,25 @@ public class InputCoordinates {
 			Set<Coordinates> availableMoveSquares = piece.getAvailableMoveSquare(board);
 			if (availableMoveSquares.size() == 0) {
 				System.out.println("blocked piece");
-				continue;
+				continue;  
 			}
+			
+			return coordinates;
 		}
-		
+
 	}
 
-	public static void main(String[] args) {
-		Coordinates coordinates = input();
+	public static Coordinates inputAvailableSquare(Set<Coordinates> coordinates) {
+		while (true) {
+			System.out.println("enter your move for selected piece");
+			Coordinates input = input();
 
-		System.out.println(coordinates);
+			if (!coordinates.contains(input)) {
+				System.out.println("non-available square");
+				continue;
+			}
+
+			return input;
+		}
 	}
 }
