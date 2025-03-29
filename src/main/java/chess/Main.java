@@ -5,7 +5,7 @@ public class Main {
 //		Board board = new Board();
 //		board.setupDefaultPiecePositions();
 		
-		Board board = new BoardFactory().fromFEN("3k4/8/5n2/2N5/3B4/8/8/3K4 w - - 0 1");
+		Board board = new BoardFactory().fromFEN("3k4/8/p5n1/5B2/R7/3P4/P7/3K4 w - - 0 1");
 
 //		BoardConsoleRenderer renderer = new BoardConsoleRenderer();
 //		renderer.render(board);
