@@ -20,7 +20,7 @@ public abstract class Piece {
 	public Set<Coordinates> getAvailableMoveSquare(Board board) {
 		Set<Coordinates> result = new HashSet<Coordinates>();
 		
-		for(CoordinatesShift shift : getPieceMove()) {
+		for(CoordinatesShift shift : getPieceMoves()) {
 			if (coordinates.canShift(shift)) {
 				Coordinates newCoordinates = coordinates.shitft(shift);
 			
@@ -39,5 +39,5 @@ public abstract class Piece {
 	}
 
 
-	protected abstract Set<CoordinatesShift> getPieceMove();
+	protected abstract Set<CoordinatesShift> getPieceMoves();
 }
