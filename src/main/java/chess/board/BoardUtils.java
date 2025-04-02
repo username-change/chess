@@ -1,7 +1,10 @@
-package chess;
+package chess.board;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import chess.Coordinates;
+import chess.File;
 
 public class BoardUtils {
 	public static List<Coordinates> getDiagonalCoordinatesBetween(Coordinates source, Coordinates target){
@@ -49,12 +52,6 @@ public class BoardUtils {
 		}
 
 		return result;
-	}
-
-	public static void main(String[] args) {
-		List<Coordinates> list = getHorizontalCoordinatesBetween(new Coordinates(File.D, 4),
-				new Coordinates(File.H, 4));
-		System.out.println(list);
 	}
 
 }

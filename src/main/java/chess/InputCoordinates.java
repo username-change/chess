@@ -3,6 +3,10 @@ package chess;
 import java.util.Scanner;
 import java.util.Set;
 
+import chess.board.Board;
+import chess.board.BoardFactory;
+import chess.board.Move;
+import chess.piece.King;
 import chess.piece.Piece;
 
 public class InputCoordinates {
@@ -67,12 +71,41 @@ public class InputCoordinates {
 			Set<Coordinates> availableMoveSquares = piece.getAvailableMoveSquare(board);
 			if (availableMoveSquares.size() == 0) {
 				System.out.println("blocked piece");
-				continue;  
+				continue;
 			}
-			
+
 			return coordinates;
 		}
 
+	}
+
+	public static Move inputMove(Board board, Color color, BoardConsoleRenderer renderer) {
+		while (true) {
+			Coordinates sourceCoordinates = InputCoordinates.inputPieceCoordinatesForColor(color, board);
+
+			Piece piece = board.getPiece(sourceCoordinates);
+			Set<Coordinates> availableMoveSquares = piece.getAvailableMoveSquare(board);
+
+			renderer.render(board, piece);
+			Coordinates targetCoordinates = InputCoordinates.inputAvailableSquare(availableMoveSquares);
+
+			Move move = new Move(sourceCoordinates, targetCoordinates);
+
+			if (validateIfKingInCheckAfterMove(board, color, move)) {
+				System.out.println("your king is under attack!");
+				continue;
+			}
+
+			return move;
+		}
+	}
+
+	private static boolean validateIfKingInCheckAfterMove(Board board, Color color, Move move) {
+		Board copy = new BoardFactory().copy(board);
+		copy.makeMove(move);
+		
+		Piece king =  copy.getPieceByColor(color).stream().filter(piece -> piece instanceof King).findFirst().get();
+		return copy.isSquareAttackedByColor(king.coordinates, color.opposite());
 	}
 
 	public static Coordinates inputAvailableSquare(Set<Coordinates> coordinates) {

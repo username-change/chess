@@ -1,14 +1,15 @@
 package chess.piece;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
-import chess.Board;
 import chess.Color;
 import chess.Coordinates;
+import chess.board.Board;
+import chess.board.BoardUtils;
 
 public class Pawn extends Piece {
-
 	public Pawn(Color color, Coordinates coordinates) {
 		super(color, coordinates);
 	}
@@ -42,9 +43,31 @@ public class Pawn extends Piece {
 	}
 
 	@Override
+	protected Set<CoordinatesShift> getPieceAttacks() {
+		Set<CoordinatesShift> result = new HashSet<CoordinatesShift>();
+
+		if (color == Color.WHITE) {
+			result.add(new CoordinatesShift(-1, 1));
+			result.add(new CoordinatesShift(1, 1));
+		} else {
+			result.add(new CoordinatesShift(-1, -1));
+			result.add(new CoordinatesShift(1, -1));
+		}
+		return result;
+	}
+
+	@Override
 	protected boolean isSquareAvailableForMove(Coordinates coordinates, Board board) {
 		if (this.coordinates.file == coordinates.file) {
-			return board.isSquareEmpty(coordinates);
+			int rankShift = Math.abs(this.coordinates.rank - coordinates.rank);
+
+			if (rankShift == 2) {
+				List<Coordinates> between = BoardUtils.getVerticaCoordinatesBetween(this.coordinates, coordinates);
+
+				return (board.isSquareEmpty(between.get(0)) && board.isSquareEmpty(coordinates));
+			} else {
+				return board.isSquareEmpty(coordinates);
+			}
 		} else {
 			if (board.isSquareEmpty(coordinates)) {
 				return false;

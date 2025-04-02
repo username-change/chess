@@ -1,9 +1,7 @@
-package chess;
+package chess.piece;
 
 import java.util.HashSet;
 import java.util.Set;
-
-import chess.piece.CoordinatesShift;
 
 public interface IRook {
 	default Set<CoordinatesShift> getRookMoves() {

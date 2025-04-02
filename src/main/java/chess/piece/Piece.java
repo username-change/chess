@@ -3,9 +3,9 @@ package chess.piece;
 import java.util.HashSet;
 import java.util.Set;
 
-import chess.Board;
 import chess.Color;
 import chess.Coordinates;
+import chess.board.Board;
 
 public abstract class Piece {
 	public final Color color;
@@ -21,7 +21,7 @@ public abstract class Piece {
 
 		for (CoordinatesShift shift : getPieceMoves()) {
 			if (coordinates.canShift(shift)) {
-				Coordinates newCoordinates = coordinates.shitft(shift);
+				Coordinates newCoordinates = coordinates.shift(shift);
 
 				if (isSquareAvailableForMove(newCoordinates, board)) {
 					result.add(newCoordinates);
@@ -33,8 +33,8 @@ public abstract class Piece {
 		return result;
 	}
 
-	protected boolean isSquareAvailableForMove(Coordinates newCoordinates, Board board) {
-		return board.isSquareEmpty(newCoordinates) || board.getPiece(newCoordinates).color != color;
+	protected boolean isSquareAvailableForMove(Coordinates coordinates, Board board) {
+		return board.isSquareEmpty(coordinates) || board.getPiece(coordinates).color != color;
 	}
 
 	protected abstract Set<CoordinatesShift> getPieceMoves();
@@ -49,14 +49,13 @@ public abstract class Piece {
 
 		for (CoordinatesShift pieceAttack : pieceAttacks) {
 			if (coordinates.canShift(pieceAttack)) {
-				Coordinates shiftedCoordinates = coordinates.shitft(pieceAttack);
+				Coordinates shiftedCoordinates = coordinates.shift(pieceAttack);
 
-				if (isSquareAvailableForMove(shiftedCoordinates, board)) {
+				if (isSquareAvailableForAttack(shiftedCoordinates, board)) {
 					result.add(shiftedCoordinates);
 				}
 			}
 		}
-
 		return result;
 	}
 

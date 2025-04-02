@@ -13,7 +13,7 @@ public class Coordinates {
 		this.rank = rank;
 	}
 
-	public Coordinates shitft(CoordinatesShift shift) {
+	public Coordinates shift(CoordinatesShift shift) {
 		return new Coordinates(File.values()[this.file.ordinal() + shift.fileShift], this.rank + shift.rankShift);
 	}
 

@@ -3,9 +3,9 @@ package chess.piece;
 import java.util.HashSet;
 import java.util.Set;
 
-import chess.Board;
 import chess.Color;
 import chess.Coordinates;
+import chess.board.Board;
 
 public class King extends Piece {
 
@@ -40,4 +40,5 @@ public class King extends Piece {
 		
 		return false;
 	}
+	
 }

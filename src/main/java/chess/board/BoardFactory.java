@@ -1,13 +1,15 @@
-package chess;
+package chess.board;
+
+import chess.Coordinates;
+import chess.File;
+import chess.PieceFactory;
 
 public class BoardFactory {
 
 	private static PieceFactory pieceFactory = new PieceFactory();
 
 	public static Board fromFEN(String fen) {
-		// rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1
-
-		Board board = new Board();
+		Board board = new Board(fen);
 
 		String[] parts = fen.split(" ");
 		String piecePositions = parts[0];
@@ -34,5 +36,15 @@ public class BoardFactory {
 			}
 		}
 		return board;
+	}
+
+	public Board copy(Board source) {
+		Board clone = fromFEN(source.startingFen);
+
+		for (Move move : source.moves) {
+			clone.makeMove(move);
+		}
+
+		return clone;
 	}
 }

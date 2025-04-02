@@ -1,10 +1,13 @@
-package chess;
+package chess.board;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Set;
 
+import chess.Color;
+import chess.Coordinates;
+import chess.File;
 import chess.piece.Bishop;
 import chess.piece.King;
 import chess.piece.Knight;
@@ -14,8 +17,15 @@ import chess.piece.Queen;
 import chess.piece.Rook;
 
 public class Board {
+	final String startingFen;
 	private HashMap<Coordinates, Piece> pieces = new HashMap<Coordinates, Piece>();
 
+	public List<Move> moves = new ArrayList<>();
+	
+	public Board(String startingFen) {
+		this.startingFen = startingFen;
+	}
+	
 	public void setPiece(Coordinates coordinates, Piece piece) {
 		piece.coordinates = coordinates;
 		pieces.put(coordinates, piece);
@@ -25,12 +35,13 @@ public class Board {
 		pieces.remove(coordinates);
 	}
 
-	public void movePiece(Coordinates from, Coordinates to) {
-		Piece piece = getPiece(from);
+	public void makeMove(Move move) {
+		Piece piece = getPiece(move.from);
 
-		removePiece(from);
-		setPiece(to, piece);
-
+		removePiece(move.from);
+		setPiece(move.to, piece);
+		
+		moves.add(move);
 	}
 
 	public boolean isSquareEmpty(Coordinates coordinates) {
@@ -73,7 +84,7 @@ public class Board {
 		return (((coordinates.file.ordinal() + 1) + coordinates.rank) % 2) == 0;
 	}
 
-	private List<Piece> getPieceByColor(Color color) {
+	public List<Piece> getPieceByColor(Color color) {
 		List<Piece> result = new ArrayList<>();
 
 		for (Piece piece : pieces.values()) {
@@ -98,5 +109,5 @@ public class Board {
 
 		return false;
 	}
-
 }
+

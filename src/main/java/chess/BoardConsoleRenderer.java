@@ -3,6 +3,7 @@ package chess;
 import java.util.Collections;
 import java.util.Set;
 
+import chess.board.Board;
 import chess.piece.Piece;
 
 public class BoardConsoleRenderer {
@@ -60,7 +61,7 @@ public class BoardConsoleRenderer {
 	}
 
 	private String getSpriteForEmpthySquare(Coordinates coordinates, boolean isHighlight) {
-		return colorizeSprite("   ", Color.BLACK, Board.isSquareDark(coordinates), isHighlight);
+		return colorizeSprite("   ", Color.WHITE, Board.isSquareDark(coordinates), isHighlight);
 	}
 
 	private String selectUnicodeSpriteForPiece(Piece piece) {

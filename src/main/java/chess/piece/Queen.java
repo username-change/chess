@@ -4,7 +4,6 @@ import java.util.Set;
 
 import chess.Color;
 import chess.Coordinates;
-import chess.IRook;
 
 public class Queen extends LongRangePiece implements IBishop, IRook{
 

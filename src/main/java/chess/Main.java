@@ -1,12 +1,15 @@
 package chess;
 
+import chess.board.Board;
+import chess.board.BoardFactory;
+
 public class Main {
 	public static void main(String[] args) {
-		
-		Board board = new BoardFactory().fromFEN("k7/8/1b6/8/4K3/8/8/8 w - - 0 1");
+
+		Board board = new BoardFactory().fromFEN("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1");
 
 		Game game = new Game(board);
 		game.gameLoop();
-		
- 	}
+
+	}
 }
